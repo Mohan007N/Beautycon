@@ -1,29 +1,31 @@
-# Welcome to your Lovable project
+# BeautyCon — The Beauty Business Operating System
 
-This project was built with [Lovable](https://lovable.dev).
+BeautyCon runs bookings, workforce scheduling, payments, inventory, and AI analytics for modern salons, spas, and luxury wellness centers.
 
-## Build with Lovable
+## Key Features
 
-Open your project in the [Lovable editor](https://lovable.dev) and keep building.
+- **Real-Time Booking & Scheduling**: Automated slot optimization and chair assignment.
+- **Workforce Management**: Stylist shifts, commission tracking, and live utilization metrics.
+- **Inventory & Supply Control**: Stock alerts, automated reorder triggers, and supplier tracking.
+- **Smart POS & Payments**: UPI, Card, Wallet, and Cash collection with instant digital receipts.
+- **Multi-Branch Analytics**: Consolidated performance insights across locations (Chennai, Bangalore, Dubai).
 
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: connect the project to GitHub and every change made in Lovable is committed straight to your repository.
-- **Full ownership**: this code is yours. Push to your repository and your changes sync back into Lovable, ready for your next prompt.
+## Tech Stack
 
-## Development
+- **Framework**: TanStack Start & TanStack Router
+- **UI**: React 19, Tailwind CSS v4, Lucide React, Framer Motion
+- **Charts**: Recharts
+- **Icons & Styling**: Tailwind CSS, Shadcn UI Primitives
 
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+## Getting Started
 
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
+```bash
+# Install dependencies
+npm install
+
+# Start development server
 npm run dev
+
+# Build for production
+npm run build
 ```
-
-## Built with
-
-- TanStack Start
-- TypeScript
-- React
-- Tailwind CSS

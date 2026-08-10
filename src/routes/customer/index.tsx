@@ -1,7 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageTitle, Panel } from "@/components/app/AppShell";
-import { services } from "@/lib/mock-data";
+import { inr } from "@/lib/mock-data";
+import { useBeautyConStore } from "@/lib/store";
 import { Star } from "lucide-react";
+import { useState } from "react";
+import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/customer/")({
   head: () => ({
@@ -16,21 +19,51 @@ export const Route = createFileRoute("/customer/")({
 });
 
 function Page() {
+  const { services, activeBranch } = useBeautyConStore();
+  const [selectedCategory, setSelectedCategory] = useState<string>("All");
+
+  const categories = ["All", "Hair", "Skin", "Colour", "Nails", "Spa"];
+
+  const filtered = selectedCategory === "All"
+    ? services
+    : services.filter((s) => s.category.toLowerCase() === selectedCategory.toLowerCase());
+
   return (
     <>
-      <PageTitle title="Good morning, Maya" sub="What are you looking for?" />
+      <PageTitle title="Good morning, Maya" sub={`Discover salon services at Luxe Studio · ${activeBranch}`} />
+      
       <div className="flex gap-2 overflow-x-auto pb-2">
-        {["Hair", "Nails", "Skin", "Spa"].map((c) => (
-          <span key={c} className="shrink-0 rounded-full border border-border bg-card px-4 py-2 text-sm font-semibold">{c}</span>
+        {categories.map((c) => (
+          <button
+            key={c}
+            type="button"
+            onClick={() => setSelectedCategory(c)}
+            className={cn(
+              "shrink-0 rounded-full border px-4 py-2 text-xs font-semibold transition-colors cursor-pointer",
+              selectedCategory === c
+                ? "border-primary bg-primary text-primary-foreground shadow-sm"
+                : "border-border bg-card text-foreground hover:bg-accent",
+            )}
+          >
+            {c}
+          </button>
         ))}
       </div>
-      <Panel title="Popular near you" className="mt-4">
+
+      <Panel title="Popular Services Near You" className="mt-4">
         <div className="grid gap-3 sm:grid-cols-2">
-          {services.map((s) => (
-            <Link key={s.id} to="/customer/book" className="rounded-xl border border-border px-4 py-3 transition-transform hover:-translate-y-1">
-              <p className="font-semibold">{s.name}</p>
-              <p className="mt-1 flex items-center gap-1 text-xs text-muted-foreground">
-                <Star className="size-3 fill-gold text-gold" /> 4.9 · {s.duration} min · ₹{s.price}
+          {filtered.map((s) => (
+            <Link
+              key={s.id}
+              to="/customer/book"
+              className="rounded-xl border border-border bg-card p-4 transition-transform hover:-translate-y-1 hover:border-gold/40 shadow-soft"
+            >
+              <div className="flex items-center justify-between">
+                <p className="font-semibold text-sm">{s.name}</p>
+                <span className="text-xs font-semibold text-gold">{inr(s.price)}</span>
+              </div>
+              <p className="mt-1.5 flex items-center gap-1.5 text-xs text-muted-foreground">
+                <Star className="size-3.5 fill-gold text-gold" /> 4.9 · {s.duration} mins · {s.category}
               </p>
             </Link>
           ))}
