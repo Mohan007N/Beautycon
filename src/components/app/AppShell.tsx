@@ -5,6 +5,9 @@ import { useState, type ReactNode } from "react";
 import { useBeautyConStore } from "@/lib/store";
 import { cn } from "@/lib/utils";
 
+import { useSocketStore } from "@/stores/socket.store";
+import { socketManager } from "@/lib/socket/socket";
+
 export interface NavItem {
   label: string;
   to: string;
@@ -25,6 +28,9 @@ export function AppShell({ items, brandNote }: { items: NavItem[]; brandNote: st
   const [branchOpen, setBranchOpen] = useState(false);
 
   const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const socketStatus = useSocketStore((s) => s.status);
+  const latencyMs = useSocketStore((s) => s.latencyMs);
+
   const {
     notifications,
     activeBranch,
@@ -58,7 +64,10 @@ export function AppShell({ items, brandNote }: { items: NavItem[]; brandNote: st
 
         <nav className="mt-4 flex-1 space-y-1.5">
           {items.map((i) => {
-            const isActive = pathname === i.to;
+            const isActive =
+              pathname === i.to ||
+              pathname === `${i.to}/` ||
+              (i.to !== "/" && pathname.replace(/\/$/, "") === i.to.replace(/\/$/, ""));
             return (
               <Link
                 key={i.to}
@@ -159,24 +168,32 @@ export function AppShell({ items, brandNote }: { items: NavItem[]; brandNote: st
               </AnimatePresence>
             </div>
 
-            {/* Live Indicator Badge */}
+            {/* Real-time Socket Connection Status Banner */}
             <button
               type="button"
-              onClick={toggleLiveSimulation}
+              onClick={() => socketManager.simulateDisconnectAndReconnect()}
+              title="Click to simulate Socket.IO disconnect/reconnect"
               className={cn(
-                "hidden sm:flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-semibold border transition-colors",
-                isLiveSimulation
-                  ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
-                  : "border-muted bg-muted/40 text-muted-foreground",
+                "hidden sm:flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-semibold border transition-all cursor-pointer",
+                socketStatus === "CONNECTED" &&
+                  "border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
+                socketStatus === "RECONNECTING" &&
+                  "border-amber-500/30 bg-amber-500/10 text-amber-600 dark:text-amber-400 animate-pulse",
+                socketStatus === "DISCONNECTED" &&
+                  "border-rose-500/30 bg-rose-500/10 text-rose-600 dark:text-rose-400",
               )}
             >
               <span
                 className={cn(
                   "size-2 rounded-full",
-                  isLiveSimulation ? "bg-emerald-500 animate-pulse" : "bg-muted-foreground",
+                  socketStatus === "CONNECTED" && "bg-emerald-500 animate-pulse",
+                  socketStatus === "RECONNECTING" && "bg-amber-500 animate-spin",
+                  socketStatus === "DISCONNECTED" && "bg-rose-500",
                 )}
               />
-              {isLiveSimulation ? "Live Real-Time" : "Paused"}
+              {socketStatus === "CONNECTED" && `🟢 Live (${latencyMs}ms)`}
+              {socketStatus === "RECONNECTING" && "🟠 Reconnecting..."}
+              {socketStatus === "DISCONNECTED" && "🔴 Disconnected"}
             </button>
           </div>
 
@@ -285,7 +302,7 @@ export function AppShell({ items, brandNote }: { items: NavItem[]; brandNote: st
               to={i.to}
               className={cn(
                 "shrink-0 rounded-full px-3.5 py-1.5 text-xs font-semibold transition-colors",
-                pathname === i.to
+                pathname.replace(/\/$/, "") === i.to.replace(/\/$/, "")
                   ? "bg-primary text-primary-foreground shadow-sm"
                   : "text-muted-foreground hover:text-foreground",
               )}

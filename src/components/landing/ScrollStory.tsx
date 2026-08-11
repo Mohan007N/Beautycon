@@ -42,10 +42,19 @@ function Scene({
   const start = index * span;
   const opacity = useTransform(
     progress,
-    [start - span * 0.35, start + span * 0.15, start + span * 0.75, start + span * 1.05],
+    [
+      Math.max(0, start - span * 0.35),
+      Math.max(0, Math.min(1, start + span * 0.15)),
+      Math.max(0, Math.min(1, start + span * 0.75)),
+      Math.min(1, start + span * 1.05),
+    ],
     [0, 1, 1, 0],
   );
-  const y = useTransform(progress, [start - span * 0.35, start + span * 0.15], [40, 0]);
+  const y = useTransform(
+    progress,
+    [Math.max(0, start - span * 0.35), Math.max(0, Math.min(1, start + span * 0.15))],
+    [40, 0],
+  );
 
   return (
     <motion.div style={{ opacity, y }} className="absolute inset-0 flex flex-col justify-center">
@@ -109,10 +118,19 @@ function WordSlot({
 }) {
   const opacity = useTransform(
     progress,
-    [start - span * 0.3, start + span * 0.12, start + span * 0.8, start + span * 1.05],
+    [
+      Math.max(0, start - span * 0.3),
+      Math.max(0, Math.min(1, start + span * 0.12)),
+      Math.max(0, Math.min(1, start + span * 0.8)),
+      Math.min(1, start + span * 1.05),
+    ],
     [0, 1, 1, 0],
   );
-  const y = useTransform(progress, [start - span * 0.3, start + span * 1.05], [70, -70]);
+  const y = useTransform(
+    progress,
+    [Math.max(0, start - span * 0.3), Math.min(1, start + span * 1.05)],
+    [70, -70],
+  );
 
   return (
     <motion.p
