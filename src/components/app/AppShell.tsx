@@ -4,6 +4,7 @@ import { Bell, Check, ChevronDown, MapPin, PanelLeft, Radio, X } from "lucide-re
 import { useState, type ReactNode } from "react";
 import { useBeautyConStore } from "@/lib/store";
 import { cn } from "@/lib/utils";
+import { BeautyConLogo } from "@/components/ui/BeautyConLogo";
 
 import { useSocketStore } from "@/stores/socket.store";
 import { socketManager } from "@/lib/socket/socket";
@@ -59,15 +60,8 @@ export function AppShell({
         transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
         className="sticky top-0 hidden h-screen shrink-0 flex-col overflow-hidden border-r border-sidebar-border bg-sidebar p-3 text-sidebar-foreground md:flex"
       >
-        <Link to="/" className="flex items-center gap-2.5 px-2 py-3">
-          <span className="grid size-8 shrink-0 place-items-center rounded-full bg-sidebar-primary text-xs font-extrabold text-sidebar-primary-foreground shadow-sm">
-            B
-          </span>
-          {sidebarOpen && (
-            <span className="truncate font-display text-lg tracking-tight font-semibold">
-              BeautyCon
-            </span>
-          )}
+        <Link to="/" className="flex items-center px-1 py-3">
+          <BeautyConLogo size="sm" showText={sidebarOpen} textClassName="text-sidebar-foreground" />
         </Link>
 
         <nav className="mt-4 flex-1 space-y-1.5">

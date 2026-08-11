@@ -3,6 +3,7 @@ import { AnimatePresence, motion, useScroll, useMotionValueEvent } from "framer-
 import { ArrowRight, Menu, X } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import { BeautyConLogo } from "@/components/ui/BeautyConLogo";
 
 const links = [
   { label: "Product", to: "/features" },
@@ -29,11 +30,8 @@ export function Navbar() {
           scrolled ? "surface-glass shadow-soft" : "border border-transparent",
         )}
       >
-        <Link to="/" className="flex min-w-0 items-center gap-2" aria-label="BeautyCon home">
-          <span className="grid size-7 shrink-0 place-items-center rounded-full bg-primary text-[11px] font-extrabold text-primary-foreground">
-            B
-          </span>
-          <span className="truncate font-display text-lg tracking-tight">BeautyCon</span>
+        <Link to="/" aria-label="BeautyCon home">
+          <BeautyConLogo size="sm" />
         </Link>
 
         <ul className="hidden items-center gap-1 lg:flex">

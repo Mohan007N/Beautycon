@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { BeautyConLogo } from "@/components/ui/BeautyConLogo";
 
 const columns = [
   {
@@ -41,7 +42,7 @@ export function Footer() {
     <footer className="border-t border-border bg-ink text-ink-foreground">
       <div className="mx-auto grid w-full max-w-6xl gap-12 px-5 py-16 lg:grid-cols-[1.4fr_2fr] lg:py-20">
         <div>
-          <p className="font-display text-3xl tracking-tight">BeautyCon</p>
+          <BeautyConLogo size="md" textClassName="text-ink-foreground text-2xl" />
           <p className="mt-3 max-w-xs text-sm leading-relaxed text-ink-foreground/60">
             The operating system for modern beauty businesses.
           </p>
