@@ -22,7 +22,15 @@ const branches = [
 ];
 
 /** Shared authenticated shell: collapsible sidebar + topbar + animated outlet. */
-export function AppShell({ items, brandNote }: { items: NavItem[]; brandNote: string }) {
+export function AppShell({
+  items,
+  brandNote,
+  children,
+}: {
+  items: NavItem[];
+  brandNote: string;
+  children?: ReactNode;
+}) {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [notifOpen, setNotifOpen] = useState(false);
   const [branchOpen, setBranchOpen] = useState(false);
@@ -147,22 +155,25 @@ export function AppShell({ items, brandNote }: { items: NavItem[]; brandNote: st
                     <p className="px-3 py-1.5 text-[11px] font-semibold tracking-wider uppercase text-muted-foreground">
                       Select Branch
                     </p>
-                    {branches.map((b) => (
-                      <button
-                        key={b}
-                        type="button"
-                        onClick={() => {
-                          setActiveBranch(b.split(" ")[0]);
-                          setBranchOpen(false);
-                        }}
-                        className="flex w-full items-center justify-between rounded-xl px-3 py-2 text-xs text-left font-medium hover:bg-accent transition-colors"
-                      >
-                        <span className="truncate">{b}</span>
-                        {activeBranch.includes(b.split(" ")[0]) && (
-                          <Check className="size-3.5 text-gold" />
-                        )}
-                      </button>
-                    ))}
+                    {branches.map((b) => {
+                      const branchCode = b.split(" ")[0] || "";
+                      return (
+                        <button
+                          key={b}
+                          type="button"
+                          onClick={() => {
+                            setActiveBranch(branchCode);
+                            setBranchOpen(false);
+                          }}
+                          className="flex w-full items-center justify-between rounded-xl px-3 py-2 text-xs text-left font-medium hover:bg-accent transition-colors"
+                        >
+                          <span className="truncate">{b}</span>
+                          {activeBranch.includes(branchCode) && (
+                            <Check className="size-3.5 text-gold" />
+                          )}
+                        </button>
+                      );
+                    })}
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -320,7 +331,7 @@ export function AppShell({ items, brandNote }: { items: NavItem[]; brandNote: st
           transition={{ duration: 0.25 }}
           className="mx-auto w-full max-w-6xl flex-1 p-4 sm:p-6"
         >
-          <Outlet />
+          {children ?? <Outlet />}
         </motion.main>
       </div>
     </div>

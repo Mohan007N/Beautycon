@@ -36,8 +36,8 @@ export function RealtimeBookingWizard() {
   const { addAppointment, activeBranch } = useBeautyConStore();
 
   const [step, setStep] = useState<1 | 2 | 3 | 4 | 5>(1);
-  const [selectedService, setSelectedService] = useState(mockServices[0]);
-  const [selectedWorker, setSelectedWorker] = useState(mockWorkers[0]);
+  const [selectedService, setSelectedService] = useState<(typeof mockServices)[number]>(mockServices[0]!);
+  const [selectedWorker, setSelectedWorker] = useState<(typeof mockWorkers)[number]>(mockWorkers[0]!);
   const [selectedDate, setSelectedDate] = useState("Today, Aug 11");
   const [selectedTime, setSelectedTime] = useState("05:30 PM");
   const [slots, setSlots] = useState(mockSlots);
