@@ -152,9 +152,9 @@ export function BeautyConProvider({ children }: { children: ReactNode }) {
       const randomServices = ["Gold Facial", "Hair Spa", "Beard Sculpt", "Gel Manicure"];
       const randomWorkers = ["Ananya", "Priya", "Arun", "Meera"];
 
-      const client = randomClients[Math.floor(Math.random() * randomClients.length)];
-      const serviceName = randomServices[Math.floor(Math.random() * randomServices.length)];
-      const workerName = randomWorkers[Math.floor(Math.random() * randomWorkers.length)];
+      const client = randomClients[Math.floor(Math.random() * randomClients.length)] || "Sneha Kapoor";
+      const serviceName = randomServices[Math.floor(Math.random() * randomServices.length)] || "Hair Spa";
+      const workerName = randomWorkers[Math.floor(Math.random() * randomWorkers.length)] || "Ananya";
       const amount = Math.floor(Math.random() * 30 + 10) * 100;
       const newId = `AP-${Math.floor(Math.random() * 9000 + 1000)}`;
 

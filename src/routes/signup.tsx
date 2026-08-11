@@ -1,14 +1,25 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { AuthForm } from "@/components/site/AuthForm";
+import { PublicLayout } from "@/layouts/PublicLayout";
+import { AuthManager } from "@/features/auth/AuthManager";
 
 export const Route = createFileRoute("/signup")({
   head: () => ({
     meta: [
-      { title: "Start free — BeautyCon" },
-      { name: "description", content: "Create your BeautyCon workspace in minutes. 14 days free, no card required." },
-      { property: "og:title", content: "Start free — BeautyCon" },
-      { property: "og:description", content: "Create your salon workspace in minutes." },
+      { title: "Get Started — BeautyCon" },
+      { name: "description", content: "Register your salon on BeautyCon OS multi-tenant platform." },
+      { property: "og:title", content: "Get Started — BeautyCon" },
+      { property: "og:description", content: "Register your salon on BeautyCon." },
     ],
   }),
-  component: () => <AuthForm mode="signup" />,
+  component: SignupPage,
 });
+
+function SignupPage() {
+  return (
+    <PublicLayout>
+      <div className="pt-24 pb-16 px-4">
+        <AuthManager mode="signup" />
+      </div>
+    </PublicLayout>
+  );
+}

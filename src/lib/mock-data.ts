@@ -50,12 +50,12 @@ export const workers: Worker[] = [
 ];
 
 export const services = [
-  { id: "S-1", name: "Hair Styling", category: "Hair", price: 1400, duration: 60, bookings: 312 },
-  { id: "S-2", name: "Hair Spa", category: "Hair", price: 1200, duration: 60, bookings: 268 },
-  { id: "S-3", name: "Gold Facial", category: "Skin", price: 2400, duration: 75, bookings: 194 },
-  { id: "S-4", name: "Balayage", category: "Colour", price: 5600, duration: 120, bookings: 88 },
-  { id: "S-5", name: "Gel Manicure", category: "Nails", price: 900, duration: 45, bookings: 241 },
-  { id: "S-6", name: "Aroma Massage", category: "Spa", price: 2100, duration: 90, bookings: 132 },
+  { id: "S-1", name: "Hair Styling", category: "Hair", price: 1400, duration: 60, bookings: 312, image: "/images/balayage.png", description: "Precision haircut, blowout & signature finish." },
+  { id: "S-2", name: "Hair Spa", category: "Hair", price: 1200, duration: 60, bookings: 268, image: "/images/hair_spa.png", description: "Deep botanical nourishment & scalp massage." },
+  { id: "S-3", name: "Gold Facial", category: "Skin", price: 2400, duration: 75, bookings: 194, image: "/images/gold_facial.png", description: "24K radiance skin therapy & lymphatic drainage." },
+  { id: "S-4", name: "Balayage", category: "Colour", price: 5600, duration: 120, bookings: 88, image: "/images/balayage.png", description: "Sun-kissed hand-painted highlights & gloss toner." },
+  { id: "S-5", name: "Gel Manicure", category: "Nails", price: 900, duration: 45, bookings: 241, image: "/images/gel_manicure.png", description: "Long-lasting gel polish, cuticle care & hand massage." },
+  { id: "S-6", name: "Beard Sculpting", category: "Grooming", price: 650, duration: 30, bookings: 156, image: "/images/beard_sculpt.png", description: "Precision barber razor trim, hot towel & beard oil." },
 ];
 
 export const customers = [

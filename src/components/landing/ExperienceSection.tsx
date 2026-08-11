@@ -7,9 +7,9 @@ import { cn } from "@/lib/utils";
 
 const categories = ["Hair", "Nails", "Skin", "Spa"];
 const salons = [
-  { name: "Luxe Studio", rating: 4.9, next: "Today · 5:30 PM", area: "Anna Nagar" },
-  { name: "Atelier Rouge", rating: 4.8, next: "Today · 6:15 PM", area: "T. Nagar" },
-  { name: "Maison Skin", rating: 5.0, next: "Tomorrow · 11:00 AM", area: "Velachery" },
+  { name: "Luxe Studio", rating: 4.9, next: "Today · 5:30 PM", area: "Anna Nagar", img: "/images/hair_spa.png" },
+  { name: "Atelier Rouge", rating: 4.8, next: "Today · 6:15 PM", area: "T. Nagar", img: "/images/gold_facial.png" },
+  { name: "Maison Skin", rating: 5.0, next: "Tomorrow · 11:00 AM", area: "Velachery", img: "/images/balayage.png" },
 ];
 
 export function ExperienceSection() {
@@ -63,11 +63,9 @@ export function ExperienceSection() {
                     whileHover={{ y: -4 }}
                     className="w-56 shrink-0 rounded-2xl border border-border bg-background p-4"
                   >
-                    <div
-                      className="h-20 rounded-xl"
-                      style={{ background: "var(--gradient-gold)", opacity: 0.75 }}
-                      aria-hidden
-                    />
+                    <div className="h-24 overflow-hidden rounded-xl bg-secondary border border-border/50">
+                      <img src={s.img} alt={s.name} className="size-full object-cover transition-transform duration-500 hover:scale-105" />
+                    </div>
                     <p className="mt-3 font-semibold">{s.name}</p>
                     <p className="flex items-center gap-1 text-xs text-muted-foreground">
                       <Star className="size-3 fill-gold text-gold" /> {s.rating} · {s.area}

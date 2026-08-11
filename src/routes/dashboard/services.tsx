@@ -105,16 +105,25 @@ function Page() {
                 key={row.id}
                 className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 rounded-xl border border-border bg-card p-3.5 sm:px-4 transition-colors hover:border-gold/30"
               >
-                <div className="min-w-0">
-                  <div className="flex items-center gap-2">
-                    <p className="truncate text-sm font-semibold">{row.name}</p>
-                    <span className="shrink-0 rounded-full border border-border bg-secondary px-2 py-0.5 text-[10px] font-semibold text-muted-foreground">
-                      {row.category}
-                    </span>
+                <div className="min-w-0 flex items-center gap-3">
+                  {(row as any).image && (
+                    <img
+                      src={(row as any).image}
+                      alt={row.name}
+                      className="size-12 rounded-xl object-cover border border-border shrink-0"
+                    />
+                  )}
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-2">
+                      <p className="truncate text-sm font-semibold">{row.name}</p>
+                      <span className="shrink-0 rounded-full border border-border bg-secondary px-2 py-0.5 text-[10px] font-semibold text-muted-foreground">
+                        {row.category}
+                      </span>
+                    </div>
+                    <p className="truncate text-xs text-muted-foreground mt-0.5">
+                      Duration: {row.duration} min · {row.bookings} bookings logged
+                    </p>
                   </div>
-                  <p className="truncate text-xs text-muted-foreground mt-0.5">
-                    Duration: {row.duration} min · {row.bookings} bookings logged
-                  </p>
                 </div>
                 <span className="shrink-0 text-sm font-semibold text-gold">
                   {inr(row.price)}
