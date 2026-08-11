@@ -8,10 +8,11 @@ import { SOCKET_EVENTS } from "@/lib/socket/events";
 import { toast } from "sonner";
 
 const mockServices = [
-  { id: "s-1", name: "Signature Hair Spa", price: 1400, duration: 60, cat: "Hair" },
-  { id: "s-2", name: "24K Gold Glow Facial", price: 2400, duration: 75, cat: "Skin" },
-  { id: "s-3", name: "French Balayage & Cut", price: 5600, duration: 120, cat: "Colour" },
-  { id: "s-4", name: "Gel Polish Manicure", price: 900, duration: 45, cat: "Nails" },
+  { id: "s-1", name: "Signature Hair Spa", price: 1400, duration: 60, cat: "Hair", image: "/images/hair_spa.png" },
+  { id: "s-2", name: "24K Gold Glow Facial", price: 2400, duration: 75, cat: "Skin", image: "/images/gold_facial.png" },
+  { id: "s-3", name: "French Balayage & Cut", price: 5600, duration: 120, cat: "Colour", image: "/images/balayage.png" },
+  { id: "s-4", name: "Gel Polish Manicure", price: 900, duration: 45, cat: "Nails", image: "/images/gel_manicure.png" },
+  { id: "s-5", name: "Beard Sculpting", price: 650, duration: 30, cat: "Grooming", image: "/images/beard_sculpt.png" },
 ];
 
 const mockWorkers = [
@@ -169,17 +170,22 @@ export function RealtimeBookingWizard() {
               type="button"
               onClick={() => setSelectedService(s)}
               className={cn(
-                "flex w-full items-center justify-between rounded-2xl border p-4 text-left transition-all cursor-pointer",
+                "flex w-full items-center gap-3.5 rounded-2xl border p-3 text-left transition-all cursor-pointer",
                 selectedService.id === s.id
-                  ? "border-gold bg-gold/5 shadow-sm"
+                  ? "border-gold bg-gold/10 shadow-sm ring-1 ring-gold"
                   : "border-border bg-background hover:bg-accent/40",
               )}
             >
-              <div>
-                <p className="font-semibold text-sm">{s.name}</p>
+              <img
+                src={s.image}
+                alt={s.name}
+                className="size-14 rounded-xl object-cover shrink-0 border border-border"
+              />
+              <div className="min-w-0 flex-1">
+                <p className="font-semibold text-sm truncate">{s.name}</p>
                 <p className="text-xs text-muted-foreground">{s.duration} mins · {s.cat}</p>
               </div>
-              <span className="font-bold text-sm text-gold">₹{s.price}</span>
+              <span className="font-bold text-sm text-gold shrink-0">₹{s.price}</span>
             </button>
           ))}
 

@@ -3,6 +3,7 @@ import { SiteLayout } from "@/components/site/SiteLayout";
 import { Hero } from "@/components/landing/Hero";
 import { ScrollStory } from "@/components/landing/ScrollStory";
 import { ProductShowcase } from "@/components/landing/ProductShowcase";
+import { ServicesShowcase } from "@/components/landing/ServicesShowcase";
 import { BookingStory } from "@/components/landing/BookingStory";
 import { SchedulingEngine } from "@/components/landing/SchedulingEngine";
 import { AIAssistant } from "@/components/landing/AIAssistant";
@@ -36,10 +37,10 @@ export const Route = createFileRoute("/")({
 function Index() {
   return (
     <SiteLayout>
-      
       <Hero />
       <ScrollStory />
       <ProductShowcase />
+      <ServicesShowcase />
       <BookingStory />
       <SchedulingEngine />
       <AIAssistant />

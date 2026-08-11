@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { PageHero, SiteLayout } from "@/components/site/SiteLayout";
 import { Reveal } from "@/components/kit/motion-primitives";
+import { ServicesShowcase } from "@/components/landing/ServicesShowcase";
 import { AIAssistant } from "@/components/landing/AIAssistant";
 import { CTASection } from "@/components/landing/CTASection";
 
@@ -49,7 +50,7 @@ function FeaturesPage() {
   return (
     <SiteLayout>
       <PageHero
-        eyebrow="Product"
+        eyebrow="Product Features"
         title="Every system a salon runs on."
         copy="Eight modules, one database, zero spreadsheets. Built for beauty businesses that operate on the floor, not in a back office."
       />
@@ -66,6 +67,8 @@ function FeaturesPage() {
           ))}
         </div>
       </section>
+
+      <ServicesShowcase />
       <AIAssistant />
       <CTASection />
     </SiteLayout>
