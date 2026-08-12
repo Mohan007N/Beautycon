@@ -78,6 +78,8 @@ export interface BeautyConState {
   updateInventoryStock: (id: string, delta: number) => void;
   addInventoryItem: (item: Omit<InventoryItem, "id">) => void;
   addService: (serv: Omit<ServiceItem, "id" | "bookings">) => void;
+  updateService: (id: string, updates: Partial<Omit<ServiceItem, "id">>) => void;
+  deleteService: (id: string) => void;
   toggleWorkerStatus: (id: string) => void;
   addWorker: (w: Omit<Worker, "id" | "utilization" | "rating" | "blocks">) => void;
   settlePayment: (id: string) => void;
@@ -100,34 +102,9 @@ export function BeautyConProvider({ children }: { children: ReactNode }) {
   const [workers, setWorkers] = useState<Worker[]>(initialWorkers);
   const [payments, setPayments] = useState<PaymentItem[]>(initialPayments as PaymentItem[]);
   const [activeBranch, setActiveBranch] = useState("Anna Nagar");
-  const [isLiveSimulation, setIsLiveSimulation] = useState(true);
+  const [isLiveSimulation, setIsLiveSimulation] = useState(false);
 
-  const [notifications, setNotifications] = useState<SystemNotification[]>([
-    {
-      id: "n-1",
-      time: "2 mins ago",
-      title: "New Booking Confirmed",
-      description: "Maya Krish booked Hair Spa with Ananya for 5:30 PM",
-      type: "booking",
-      read: false,
-    },
-    {
-      id: "n-2",
-      time: "15 mins ago",
-      title: "Stock Alert",
-      description: "24K Gold Facial Kit is below reorder point (4 left)",
-      type: "inventory",
-      read: false,
-    },
-    {
-      id: "n-3",
-      time: "1 hour ago",
-      title: "Payment Received",
-      description: "₹2,400 via UPI settled by Divya Raman",
-      type: "payment",
-      read: true,
-    },
-  ]);
+  const [notifications, setNotifications] = useState<SystemNotification[]>([]);
 
   // Push notification helper
   const notify = (title: string, description: string, type: SystemNotification["type"]) => {
@@ -142,39 +119,6 @@ export function BeautyConProvider({ children }: { children: ReactNode }) {
     setNotifications((prev) => [newNotif, ...prev]);
     toast.success(title, { description });
   };
-
-  // Automated live simulation pulse
-  useEffect(() => {
-    if (!isLiveSimulation) return;
-
-    const interval = setInterval(() => {
-      const randomClients = ["Sneha Kapoor", "Rohan Verma", "Pooja Reddy", "Vikram Das"];
-      const randomServices = ["Gold Facial", "Hair Spa", "Beard Sculpt", "Gel Manicure"];
-      const randomWorkers = ["Ananya", "Priya", "Arun", "Meera"];
-
-      const client = randomClients[Math.floor(Math.random() * randomClients.length)] || "Sneha Kapoor";
-      const serviceName = randomServices[Math.floor(Math.random() * randomServices.length)] || "Hair Spa";
-      const workerName = randomWorkers[Math.floor(Math.random() * randomWorkers.length)] || "Ananya";
-      const amount = Math.floor(Math.random() * 30 + 10) * 100;
-      const newId = `AP-${Math.floor(Math.random() * 9000 + 1000)}`;
-
-      const newApp: Appointment = {
-        id: newId,
-        customer: client,
-        service: serviceName,
-        worker: workerName,
-        time: "Just now",
-        duration: 45,
-        amount,
-        status: "confirmed",
-      };
-
-      setAppointments((prev) => [newApp, ...prev.slice(0, 15)]);
-      notify("⚡ Real-time Booking Pulse", `${client} booked ${serviceName} (₹${amount})`, "booking");
-    }, 18000); // Trigger live event simulation every 18 seconds
-
-    return () => clearInterval(interval);
-  }, [isLiveSimulation]);
 
   const addAppointment = (app: Omit<Appointment, "id">) => {
     const newApp: Appointment = {
@@ -236,6 +180,18 @@ export function BeautyConProvider({ children }: { children: ReactNode }) {
     };
     setServices((prev) => [newServ, ...prev]);
     notify("Service Added", `${serv.name} added to service menu`, "system");
+  };
+
+  const updateService = (id: string, updates: Partial<Omit<ServiceItem, "id">>) => {
+    setServices((prev) =>
+      prev.map((s) => (s.id === id ? { ...s, ...updates } : s)),
+    );
+    toast.success("Service updated successfully");
+  };
+
+  const deleteService = (id: string) => {
+    setServices((prev) => prev.filter((s) => s.id !== id));
+    toast.info("Service removed from catalog");
   };
 
   const toggleWorkerStatus = (id: string) => {
@@ -315,6 +271,8 @@ export function BeautyConProvider({ children }: { children: ReactNode }) {
         updateInventoryStock,
         addInventoryItem,
         addService,
+        updateService,
+        deleteService,
         toggleWorkerStatus,
         addWorker,
         settlePayment,

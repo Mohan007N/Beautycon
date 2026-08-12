@@ -14,37 +14,52 @@ export function BeautyConLogo({
   textClassName,
 }: BeautyConLogoProps) {
   const iconSizes = {
-    sm: "size-7",
-    md: "size-9",
-    lg: "size-11",
+    sm: "size-8",
+    md: "size-10",
+    lg: "size-12",
   };
 
   return (
-    <div className={cn("inline-flex items-center gap-2.5 select-none", className)}>
-      {/* Luxury Geometric Crown Lotus Logo Mark */}
-      <div className={cn("relative grid shrink-0 place-items-center rounded-xl bg-gradient-to-br from-gold via-peach to-gold-soft p-1.5 shadow-md shadow-gold/20 transition-transform duration-300 hover:scale-105", iconSizes[size])}>
+    <div className={cn("inline-flex items-center gap-2.5 select-none group cursor-pointer", className)}>
+      {/* Modern Sleek Luxury BeautyCon Emblem */}
+      <div
+        className={cn(
+          "relative grid shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-gold via-gold/80 to-amber-600 p-2 shadow-lg shadow-gold/25 transition-transform duration-300 group-hover:scale-105 ring-1 ring-gold/40",
+          iconSizes[size],
+        )}
+      >
         <svg
           viewBox="0 0 24 24"
           fill="none"
-          className="size-full text-ink stroke-[2.2]"
           stroke="currentColor"
+          strokeWidth="2.2"
           strokeLinecap="round"
           strokeLinejoin="round"
+          className="size-full text-black"
           aria-hidden="true"
         >
-          {/* Outer Crown/Sparkle Petals */}
-          <path d="M12 2L14.5 9L21.5 9.5 L16 14L18 21L12 17L6 21L8 14L2.5 9.5L9.5 9L12 2Z" fill="var(--ink)" fillOpacity="0.15" />
-          <circle cx="12" cy="12" r="3" fill="var(--ink)" />
+          {/* Scissors + Sparkle Crown Modern Icon */}
+          <circle cx="6" cy="6" r="3" />
+          <circle cx="6" cy="18" r="3" />
+          <line x1="8.12" y1="8.12" x2="12" y2="12" />
+          <line x1="20" y1="4" x2="8.12" y2="15.88" />
+          <line x1="14.8" y1="14.8" x2="20" y2="20" />
+          <path d="M18 7l1 2 2 1-2 1-1 2-1-2-2-1 2-1z" fill="currentColor" />
         </svg>
       </div>
 
       {showText && (
         <div className="flex flex-col">
-          <span className={cn("font-display font-extrabold tracking-tight text-foreground text-lg leading-none", textClassName)}>
-            Beauty<span className="text-gold">Con</span>
+          <span
+            className={cn(
+              "font-display font-extrabold tracking-tight text-foreground text-lg leading-none flex items-center gap-1",
+              textClassName,
+            )}
+          >
+            BEAUTY<span className="text-gold italic font-bold">CON</span>
           </span>
-          <span className="text-[9px] font-bold tracking-[0.2em] uppercase text-muted-foreground mt-0.5">
-            SaaS OS
+          <span className="text-[9px] font-extrabold tracking-[0.25em] uppercase text-muted-foreground/80 mt-0.5">
+            ERP · CRM OS
           </span>
         </div>
       )}

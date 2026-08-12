@@ -24,10 +24,12 @@ import { Route as CustomerAppointmentsRouteImport } from './routes/customer/appo
 import { Route as CustomerBookRouteImport } from './routes/customer/book'
 import { Route as CustomerProfileRouteImport } from './routes/customer/profile'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
+import { Route as DashboardAiRouteImport } from './routes/dashboard/ai'
 import { Route as DashboardAnalyticsRouteImport } from './routes/dashboard/analytics'
 import { Route as DashboardAppointmentsRouteImport } from './routes/dashboard/appointments'
 import { Route as DashboardCustomersRouteImport } from './routes/dashboard/customers'
 import { Route as DashboardInventoryRouteImport } from './routes/dashboard/inventory'
+import { Route as DashboardOperationsRouteImport } from './routes/dashboard/operations'
 import { Route as DashboardOverviewRouteImport } from './routes/dashboard/overview'
 import { Route as DashboardPaymentsRouteImport } from './routes/dashboard/payments'
 import { Route as DashboardServicesRouteImport } from './routes/dashboard/services'
@@ -113,6 +115,11 @@ const DashboardIndexRoute = DashboardIndexRouteImport.update({
   path: '/',
   getParentRoute: () => DashboardRoute,
 } as any)
+const DashboardAiRoute = DashboardAiRouteImport.update({
+  id: '/ai',
+  path: '/ai',
+  getParentRoute: () => DashboardRoute,
+} as any)
 const DashboardAnalyticsRoute = DashboardAnalyticsRouteImport.update({
   id: '/analytics',
   path: '/analytics',
@@ -131,6 +138,11 @@ const DashboardCustomersRoute = DashboardCustomersRouteImport.update({
 const DashboardInventoryRoute = DashboardInventoryRouteImport.update({
   id: '/inventory',
   path: '/inventory',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardOperationsRoute = DashboardOperationsRouteImport.update({
+  id: '/operations',
+  path: '/operations',
   getParentRoute: () => DashboardRoute,
 } as any)
 const DashboardOverviewRoute = DashboardOverviewRouteImport.update({
@@ -193,10 +205,12 @@ export interface FileRoutesByFullPath {
   '/customer/appointments': typeof CustomerAppointmentsRoute
   '/customer/book': typeof CustomerBookRoute
   '/customer/profile': typeof CustomerProfileRoute
+  '/dashboard/ai': typeof DashboardAiRoute
   '/dashboard/analytics': typeof DashboardAnalyticsRoute
   '/dashboard/appointments': typeof DashboardAppointmentsRoute
   '/dashboard/customers': typeof DashboardCustomersRoute
   '/dashboard/inventory': typeof DashboardInventoryRoute
+  '/dashboard/operations': typeof DashboardOperationsRoute
   '/dashboard/overview': typeof DashboardOverviewRoute
   '/dashboard/payments': typeof DashboardPaymentsRoute
   '/dashboard/services': typeof DashboardServicesRoute
@@ -220,10 +234,12 @@ export interface FileRoutesByTo {
   '/customer/appointments': typeof CustomerAppointmentsRoute
   '/customer/book': typeof CustomerBookRoute
   '/customer/profile': typeof CustomerProfileRoute
+  '/dashboard/ai': typeof DashboardAiRoute
   '/dashboard/analytics': typeof DashboardAnalyticsRoute
   '/dashboard/appointments': typeof DashboardAppointmentsRoute
   '/dashboard/customers': typeof DashboardCustomersRoute
   '/dashboard/inventory': typeof DashboardInventoryRoute
+  '/dashboard/operations': typeof DashboardOperationsRoute
   '/dashboard/overview': typeof DashboardOverviewRoute
   '/dashboard/payments': typeof DashboardPaymentsRoute
   '/dashboard/services': typeof DashboardServicesRoute
@@ -251,10 +267,12 @@ export interface FileRoutesById {
   '/customer/appointments': typeof CustomerAppointmentsRoute
   '/customer/book': typeof CustomerBookRoute
   '/customer/profile': typeof CustomerProfileRoute
+  '/dashboard/ai': typeof DashboardAiRoute
   '/dashboard/analytics': typeof DashboardAnalyticsRoute
   '/dashboard/appointments': typeof DashboardAppointmentsRoute
   '/dashboard/customers': typeof DashboardCustomersRoute
   '/dashboard/inventory': typeof DashboardInventoryRoute
+  '/dashboard/operations': typeof DashboardOperationsRoute
   '/dashboard/overview': typeof DashboardOverviewRoute
   '/dashboard/payments': typeof DashboardPaymentsRoute
   '/dashboard/services': typeof DashboardServicesRoute
@@ -283,10 +301,12 @@ export interface FileRouteTypes {
     | '/customer/appointments'
     | '/customer/book'
     | '/customer/profile'
+    | '/dashboard/ai'
     | '/dashboard/analytics'
     | '/dashboard/appointments'
     | '/dashboard/customers'
     | '/dashboard/inventory'
+    | '/dashboard/operations'
     | '/dashboard/overview'
     | '/dashboard/payments'
     | '/dashboard/services'
@@ -310,10 +330,12 @@ export interface FileRouteTypes {
     | '/customer/appointments'
     | '/customer/book'
     | '/customer/profile'
+    | '/dashboard/ai'
     | '/dashboard/analytics'
     | '/dashboard/appointments'
     | '/dashboard/customers'
     | '/dashboard/inventory'
+    | '/dashboard/operations'
     | '/dashboard/overview'
     | '/dashboard/payments'
     | '/dashboard/services'
@@ -340,10 +362,12 @@ export interface FileRouteTypes {
     | '/customer/appointments'
     | '/customer/book'
     | '/customer/profile'
+    | '/dashboard/ai'
     | '/dashboard/analytics'
     | '/dashboard/appointments'
     | '/dashboard/customers'
     | '/dashboard/inventory'
+    | '/dashboard/operations'
     | '/dashboard/overview'
     | '/dashboard/payments'
     | '/dashboard/services'
@@ -477,6 +501,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardIndexRouteImport
       parentRoute: typeof DashboardRoute
     }
+    '/dashboard/ai': {
+      id: '/dashboard/ai'
+      path: '/ai'
+      fullPath: '/dashboard/ai'
+      preLoaderRoute: typeof DashboardAiRouteImport
+      parentRoute: typeof DashboardRoute
+    }
     '/dashboard/analytics': {
       id: '/dashboard/analytics'
       path: '/analytics'
@@ -503,6 +534,13 @@ declare module '@tanstack/react-router' {
       path: '/inventory'
       fullPath: '/dashboard/inventory'
       preLoaderRoute: typeof DashboardInventoryRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/operations': {
+      id: '/dashboard/operations'
+      path: '/operations'
+      fullPath: '/dashboard/operations'
+      preLoaderRoute: typeof DashboardOperationsRouteImport
       parentRoute: typeof DashboardRoute
     }
     '/dashboard/overview': {
@@ -590,10 +628,12 @@ const CustomerRouteWithChildren = CustomerRoute._addFileChildren(
 )
 
 interface DashboardRouteChildren {
+  DashboardAiRoute: typeof DashboardAiRoute
   DashboardAnalyticsRoute: typeof DashboardAnalyticsRoute
   DashboardAppointmentsRoute: typeof DashboardAppointmentsRoute
   DashboardCustomersRoute: typeof DashboardCustomersRoute
   DashboardInventoryRoute: typeof DashboardInventoryRoute
+  DashboardOperationsRoute: typeof DashboardOperationsRoute
   DashboardOverviewRoute: typeof DashboardOverviewRoute
   DashboardPaymentsRoute: typeof DashboardPaymentsRoute
   DashboardServicesRoute: typeof DashboardServicesRoute
@@ -603,10 +643,12 @@ interface DashboardRouteChildren {
 }
 
 const DashboardRouteChildren: DashboardRouteChildren = {
+  DashboardAiRoute: DashboardAiRoute,
   DashboardAnalyticsRoute: DashboardAnalyticsRoute,
   DashboardAppointmentsRoute: DashboardAppointmentsRoute,
   DashboardCustomersRoute: DashboardCustomersRoute,
   DashboardInventoryRoute: DashboardInventoryRoute,
+  DashboardOperationsRoute: DashboardOperationsRoute,
   DashboardOverviewRoute: DashboardOverviewRoute,
   DashboardPaymentsRoute: DashboardPaymentsRoute,
   DashboardServicesRoute: DashboardServicesRoute,

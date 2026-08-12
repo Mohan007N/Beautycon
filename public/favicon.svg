@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="gold-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D4AF37" />
+      <stop offset="50%" stop-color="#F3E5AB" />
+      <stop offset="100%" stop-color="#AA7C11" />
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="16" fill="#121212" />
+  <rect x="2" y="2" width="60" height="60" rx="14" fill="none" stroke="url(#gold-grad)" stroke-width="2" stroke-opacity="0.4" />
+  
+  <!-- Scissors + Sparkle Crown Emblem -->
+  <g transform="translate(12, 12)" stroke="url(#gold-grad)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <circle cx="10" cy="10" r="5" />
+    <circle cx="10" cy="30" r="5" />
+    <line x1="13.5" y1="13.5" x2="20" y2="20" />
+    <line x1="33" y1="7" x2="13.5" y2="26.5" />
+    <line x1="24.5" y1="24.5" x2="33" y2="33" />
+    <path d="M30 12l1.5 3 3 1.5-3 1.5-1.5 3-1.5-3-3-1.5 3-1.5z" fill="url(#gold-grad)" stroke="none" />
+  </g>
+</svg>

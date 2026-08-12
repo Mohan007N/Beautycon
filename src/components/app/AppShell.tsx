@@ -1,17 +1,21 @@
 import { Link, Outlet, useRouterState } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "framer-motion";
-import { Bell, Check, ChevronDown, MapPin, PanelLeft, Radio, X } from "lucide-react";
+import { Bell, Check, ChevronDown, MapPin, PanelLeft, Radio, Search, Sparkles, X } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { useBeautyConStore } from "@/lib/store";
 import { cn } from "@/lib/utils";
 import { BeautyConLogo } from "@/components/ui/BeautyConLogo";
+import { CommandKModal } from "./CommandKModal";
 
 import { useSocketStore } from "@/stores/socket.store";
+import { useAuthStore } from "@/stores/auth.store";
 import { socketManager } from "@/lib/socket/socket";
 
 export interface NavItem {
   label: string;
   to: string;
+  icon?: string;
+  group?: string;
 }
 
 const branches = [
@@ -35,10 +39,20 @@ export function AppShell({
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [notifOpen, setNotifOpen] = useState(false);
   const [branchOpen, setBranchOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
 
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const socketStatus = useSocketStore((s) => s.status);
   const latencyMs = useSocketStore((s) => s.latencyMs);
+  const { user } = useAuthStore();
+
+  const userInitials = user?.name
+    ? user.name
+        .split(" ")
+        .map((n) => n[0])
+        .join("")
+        .toUpperCase()
+    : "BC";
 
   const {
     notifications,
@@ -64,50 +78,50 @@ export function AppShell({
           <BeautyConLogo size="sm" showText={sidebarOpen} textClassName="text-sidebar-foreground" />
         </Link>
 
-        <nav className="mt-4 flex-1 space-y-1.5">
-          {items.map((i) => {
+        <nav className="mt-4 flex-1 space-y-3 overflow-y-auto custom-scrollbar">
+          {items.map((i, idx) => {
             const isActive =
               pathname === i.to ||
               pathname === `${i.to}/` ||
               (i.to !== "/" && pathname.replace(/\/$/, "") === i.to.replace(/\/$/, ""));
+            
+            const prevItem = items[idx - 1];
+            const showGroupHeader = sidebarOpen && i.group && (!prevItem || prevItem.group !== i.group);
+
             return (
-              <Link
-                key={i.to}
-                to={i.to}
-                className={cn(
-                  "block truncate rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-200",
-                  isActive
-                    ? "bg-sidebar-accent text-sidebar-accent-foreground font-semibold shadow-sm"
-                    : "text-sidebar-foreground/70 hover:bg-sidebar-accent/50 hover:text-sidebar-foreground",
+              <div key={i.to}>
+                {showGroupHeader && (
+                  <p className="px-3 pt-2 pb-1 text-[10px] font-bold uppercase tracking-widest text-sidebar-foreground/40">
+                    {i.group}
+                  </p>
                 )}
-              >
-                {sidebarOpen ? i.label : i.label.slice(0, 1)}
-              </Link>
+                <Link
+                  to={i.to}
+                  className={cn(
+                    "flex items-center gap-2.5 truncate rounded-xl px-3 py-2 text-xs font-medium transition-all duration-200",
+                    isActive
+                      ? "bg-sidebar-accent text-sidebar-accent-foreground font-semibold shadow-sm"
+                      : "text-sidebar-foreground/70 hover:bg-sidebar-accent/50 hover:text-sidebar-foreground",
+                  )}
+                >
+                  <span className="text-sm shrink-0">{i.icon || "•"}</span>
+                  {sidebarOpen && <span className="truncate">{i.label}</span>}
+                </Link>
+              </div>
             );
           })}
         </nav>
 
         {sidebarOpen && (
-          <div className="mt-auto rounded-2xl border border-sidebar-border/60 bg-sidebar-accent/30 p-3">
-            <div className="flex items-center justify-between text-xs text-sidebar-foreground/60">
-              <span className="font-semibold">Live Mode</span>
-              <button
-                type="button"
-                onClick={toggleLiveSimulation}
-                className={cn(
-                  "relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full transition-colors duration-200 ease-in-out",
-                  isLiveSimulation ? "bg-emerald-500" : "bg-zinc-600",
-                )}
-              >
-                <span
-                  className={cn(
-                    "inline-block size-4 transform rounded-full bg-white transition duration-200 ease-in-out shadow-sm translate-y-0.5",
-                    isLiveSimulation ? "translate-x-4.5" : "translate-x-0.5",
-                  )}
-                />
-              </button>
+          <div className="mt-auto rounded-2xl border border-sidebar-border/60 bg-sidebar-accent/30 p-3 space-y-1">
+            <div className="flex items-center justify-between text-[11px]">
+              <span className="text-sidebar-foreground/50">Branch</span>
+              <span className="font-semibold text-gold">{activeBranch}</span>
             </div>
-            <p className="mt-2 truncate text-[11px] text-sidebar-foreground/40">{brandNote}</p>
+            <div className="flex items-center justify-between text-[11px]">
+              <span className="text-sidebar-foreground/50">Session</span>
+              <span className="font-semibold text-sidebar-foreground/90">{user?.name || "Ananya Krish"}</span>
+            </div>
           </div>
         )}
       </motion.aside>
@@ -173,13 +187,10 @@ export function AppShell({
               </AnimatePresence>
             </div>
 
-            {/* Real-time Socket Connection Status Banner */}
-            <button
-              type="button"
-              onClick={() => socketManager.simulateDisconnectAndReconnect()}
-              title="Click to simulate Socket.IO disconnect/reconnect"
+            {/* Real-time Socket Connection Status Indicator */}
+            <div
               className={cn(
-                "hidden sm:flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-semibold border transition-all cursor-pointer",
+                "hidden sm:flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-semibold border transition-all select-none",
                 socketStatus === "CONNECTED" &&
                   "border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
                 socketStatus === "RECONNECTING" &&
@@ -196,13 +207,26 @@ export function AppShell({
                   socketStatus === "DISCONNECTED" && "bg-rose-500",
                 )}
               />
-              {socketStatus === "CONNECTED" && `🟢 Live (${latencyMs}ms)`}
+              {socketStatus === "CONNECTED" && "🟢 System Online"}
               {socketStatus === "RECONNECTING" && "🟠 Reconnecting..."}
-              {socketStatus === "DISCONNECTED" && "🔴 Disconnected"}
-            </button>
+              {socketStatus === "DISCONNECTED" && "🔴 Offline"}
+            </div>
           </div>
 
           <div className="flex items-center gap-2">
+            {/* Quick Cmd+K Search Trigger Button */}
+            <button
+              type="button"
+              onClick={() => setSearchOpen(true)}
+              className="flex items-center gap-2 rounded-xl border border-border bg-card px-3 py-1.5 text-xs text-muted-foreground hover:text-foreground hover:bg-accent transition-all"
+            >
+              <Search className="size-3.5 text-gold" />
+              <span className="hidden sm:inline-block font-medium">Search...</span>
+              <kbd className="hidden sm:inline-flex items-center gap-0.5 rounded border border-border bg-secondary px-1.5 py-0.5 text-[10px] font-bold text-muted-foreground">
+                ⌘K
+              </kbd>
+            </button>
+
             {/* Notification Bell Dropdown */}
             <div className="relative">
               <button
@@ -294,7 +318,7 @@ export function AppShell({
             </div>
 
             <span className="grid size-9 place-items-center rounded-full bg-primary text-xs font-bold text-primary-foreground shadow-sm">
-              AK
+              {userInitials}
             </span>
           </div>
         </header>
@@ -328,6 +352,8 @@ export function AppShell({
           {children ?? <Outlet />}
         </motion.main>
       </div>
+
+      <CommandKModal isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
     </div>
   );
 }

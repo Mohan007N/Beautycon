@@ -208,6 +208,38 @@
   font-weight: 700;
 }
 
+@utility badge-glow {
+  box-shadow: 0 0 16px -2px color-mix(in oklab, var(--gold) 40%, transparent);
+}
+
+@utility crm-column {
+  background: color-mix(in oklab, var(--card) 60%, var(--background));
+  border: 1px solid color-mix(in oklab, var(--border) 80%, transparent);
+  border-radius: var(--radius-xl);
+}
+
+@utility custom-scrollbar {
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: color-mix(in oklab, var(--border) 60%, transparent);
+    border-radius: 9999px;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: var(--muted-foreground);
+  }
+}
+
+@utility skeleton-pulse {
+  background: color-mix(in oklab, var(--muted) 80%, transparent);
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

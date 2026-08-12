@@ -5,15 +5,17 @@ import { ShieldAlert } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 
 const adminNavItems = [
-  { label: "Overview", to: "/dashboard/overview" },
-  { label: "Appointments", to: "/dashboard/appointments" },
-  { label: "Workers", to: "/dashboard/workers" },
-  { label: "Customers", to: "/dashboard/customers" },
-  { label: "Services", to: "/dashboard/services" },
-  { label: "Inventory", to: "/dashboard/inventory" },
-  { label: "Payments", to: "/dashboard/payments" },
-  { label: "Analytics", to: "/dashboard/analytics" },
-  { label: "Settings", to: "/dashboard/settings" },
+  { label: "Dashboard", icon: "⌂", to: "/dashboard/overview", group: "Main" },
+  { label: "Live Floor", icon: "⚡", to: "/dashboard/operations", group: "Main" },
+  { label: "Appointments", icon: "📅", to: "/dashboard/appointments", group: "Manage" },
+  { label: "Customers", icon: "👥", to: "/dashboard/customers", group: "Manage" },
+  { label: "Team", icon: "✂️", to: "/dashboard/workers", group: "Manage" },
+  { label: "Services", icon: "💈", to: "/dashboard/services", group: "Manage" },
+  { label: "Stock", icon: "📦", to: "/dashboard/inventory", group: "Manage" },
+  { label: "Payments", icon: "💳", to: "/dashboard/payments", group: "Manage" },
+  { label: "Reports", icon: "📈", to: "/dashboard/analytics", group: "Insights" },
+  { label: "AI Helper", icon: "🤖", to: "/dashboard/ai", group: "Insights" },
+  { label: "Settings", icon: "⚙️", to: "/dashboard/settings", group: "System" },
 ];
 
 export function AdminLayout({ children }: { children?: ReactNode }) {

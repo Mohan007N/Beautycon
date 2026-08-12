@@ -33,12 +33,15 @@ const mockSlots = [
 ];
 
 export function RealtimeBookingWizard() {
-  const { addAppointment, activeBranch } = useBeautyConStore();
+  const { services, workers: storeWorkers, addAppointment, activeBranch } = useBeautyConStore();
+
+  const serviceList = services.length > 0 ? services : mockServices;
+  const workerList = storeWorkers.length > 0 ? storeWorkers : mockWorkers;
 
   const [step, setStep] = useState<1 | 2 | 3 | 4 | 5>(1);
-  const [selectedService, setSelectedService] = useState<(typeof mockServices)[number]>(mockServices[0]!);
-  const [selectedWorker, setSelectedWorker] = useState<(typeof mockWorkers)[number]>(mockWorkers[0]!);
-  const [selectedDate, setSelectedDate] = useState("Today, Aug 11");
+  const [selectedService, setSelectedService] = useState<any>(serviceList[0]!);
+  const [selectedWorker, setSelectedWorker] = useState<any>(workerList[0]!);
+  const [selectedDate, setSelectedDate] = useState("Today, Aug 12");
   const [selectedTime, setSelectedTime] = useState("05:30 PM");
   const [slots, setSlots] = useState(mockSlots);
 
@@ -164,7 +167,7 @@ export function RealtimeBookingWizard() {
       {step === 1 && (
         <div className="space-y-3">
           <p className="text-xs font-semibold text-muted-foreground mb-2">1. Pick a Service Menu</p>
-          {mockServices.map((s) => (
+          {serviceList.map((s: any) => (
             <button
               key={s.id}
               type="button"
@@ -176,14 +179,12 @@ export function RealtimeBookingWizard() {
                   : "border-border bg-background hover:bg-accent/40",
               )}
             >
-              <img
-                src={s.image}
-                alt={s.name}
-                className="size-14 rounded-xl object-cover shrink-0 border border-border"
-              />
+              <div className="grid size-12 shrink-0 place-items-center rounded-xl bg-gold/10 text-gold font-bold text-base">
+                ✂️
+              </div>
               <div className="min-w-0 flex-1">
                 <p className="font-semibold text-sm truncate">{s.name}</p>
-                <p className="text-xs text-muted-foreground">{s.duration} mins · {s.cat}</p>
+                <p className="text-xs text-muted-foreground">{s.duration} mins · {s.category || s.cat || "Beauty"}</p>
               </div>
               <span className="font-bold text-sm text-gold shrink-0">₹{s.price}</span>
             </button>
@@ -205,7 +206,7 @@ export function RealtimeBookingWizard() {
           <div>
             <p className="text-xs font-semibold text-muted-foreground mb-2">2. Choose Preferred Stylist</p>
             <div className="grid grid-cols-2 gap-2">
-              {mockWorkers.map((w) => (
+              {workerList.map((w: any) => (
                 <button
                   key={w.id}
                   type="button"
@@ -218,7 +219,7 @@ export function RealtimeBookingWizard() {
                   )}
                 >
                   <p className="text-xs font-semibold">{w.name}</p>
-                  <p className="text-[10px] text-muted-foreground">{w.role} · ⭐ {w.rating}</p>
+                  <p className="text-[10px] text-muted-foreground">{w.role} · ⭐ {w.rating || 4.9}</p>
                 </button>
               ))}
             </div>
