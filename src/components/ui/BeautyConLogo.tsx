@@ -49,19 +49,14 @@ export function BeautyConLogo({
       </div>
 
       {showText && (
-        <div className="flex flex-col">
-          <span
-            className={cn(
-              "font-display font-extrabold tracking-tight text-foreground text-lg leading-none flex items-center gap-1",
-              textClassName,
-            )}
-          >
-            BEAUTY<span className="text-gold italic font-bold">CON</span>
-          </span>
-          <span className="text-[9px] font-extrabold tracking-[0.25em] uppercase text-muted-foreground/80 mt-0.5">
-            ERP · CRM OS
-          </span>
-        </div>
+        <span
+          className={cn(
+            "font-display font-extrabold tracking-tight text-foreground text-lg leading-none flex items-center gap-1",
+            textClassName,
+          )}
+        >
+          BEAUTY<span className="text-gold italic font-bold">CON</span>
+        </span>
       )}
     </div>
   );

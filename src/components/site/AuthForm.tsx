@@ -25,7 +25,7 @@ export function AuthForm({ mode }: { mode: "login" | "signup" }) {
         <div className="relative flex h-full flex-col justify-between">
           <Link to="/" className="font-display text-xl tracking-tight">BeautyCon</Link>
           <div>
-            <p className="font-display text-5xl leading-[0.98] tracking-tight">One booking.<br />Zero chaos.</p>
+            <p className="font-display text-5xl leading-[1.05] tracking-tight">One booking.<br />Zero chaos.</p>
             <p className="mt-5 max-w-sm text-sm text-ink-foreground/60">Book. Schedule. Operate. Grow.</p>
           </div>
         </div>

@@ -1,20 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { Hero } from "@/components/landing/Hero";
-import { ProductDemo } from "@/components/landing/ProductDemo";
 import { TrustBar } from "@/components/landing/TrustBar";
-import { CRMPipelineDemo } from "@/components/landing/CRMPipelineDemo";
-import { ROICalculator } from "@/components/landing/ROICalculator";
 import { ScrollStory } from "@/components/landing/ScrollStory";
 import { ProductShowcase } from "@/components/landing/ProductShowcase";
-import { ServicesShowcase } from "@/components/landing/ServicesShowcase";
-import { BookingStory } from "@/components/landing/BookingStory";
-import { SchedulingEngine } from "@/components/landing/SchedulingEngine";
-import { AIAssistant } from "@/components/landing/AIAssistant";
-import { AnalyticsStory } from "@/components/landing/AnalyticsStory";
-import { ExperienceSection } from "@/components/landing/ExperienceSection";
-import { ERPOrbit } from "@/components/landing/ERPOrbit";
-import { RealtimeFlow } from "@/components/landing/RealtimeFlow";
+import { CRMPipelineDemo } from "@/components/landing/CRMPipelineDemo";
+import { ROICalculator } from "@/components/landing/ROICalculator";
 import { MultiBranch } from "@/components/landing/MultiBranch";
 import { PricingSection } from "@/components/landing/PricingSection";
 import { CTASection } from "@/components/landing/CTASection";
@@ -42,23 +33,15 @@ function Index() {
   return (
     <SiteLayout>
       <Hero />
-      <ProductDemo />
       <TrustBar />
-      <CRMPipelineDemo />
       <ScrollStory />
       <ProductShowcase />
+      <CRMPipelineDemo />
       <ROICalculator />
-      <ServicesShowcase />
-      <BookingStory />
-      <SchedulingEngine />
-      <AIAssistant />
-      <AnalyticsStory />
-      <ExperienceSection />
-      <ERPOrbit />
-      <RealtimeFlow />
       <MultiBranch />
       <PricingSection compact />
       <CTASection />
     </SiteLayout>
   );
 }
+

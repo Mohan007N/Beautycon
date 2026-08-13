@@ -15,7 +15,7 @@ export function CTASection() {
         style={{ background: "var(--gradient-gold)" }}
       />
       <div className="relative mx-auto w-full max-w-5xl px-5 py-24 text-center">
-        <h2 className="font-display text-[clamp(2.6rem,8vw,6.5rem)] leading-[0.94] tracking-tight">
+        <h2 className="font-display text-[clamp(2.6rem,8vw,6.5rem)] leading-[1.05] tracking-tight">
           <AnimatedText lines={["Ready to run", "beauty differently?"]} />
         </h2>
         <p className="mx-auto mt-7 max-w-lg text-base text-ink-foreground/60 sm:text-lg">

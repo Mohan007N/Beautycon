@@ -40,7 +40,7 @@ export function PageHero({
       />
       <div className="relative mx-auto w-full max-w-6xl px-5 pb-16 pt-36 sm:pb-24 sm:pt-44">
         <p className="eyebrow text-muted-foreground">{eyebrow}</p>
-        <h1 className="mt-5 max-w-3xl font-display text-5xl leading-[0.98] tracking-tight sm:text-6xl lg:text-7xl">
+        <h1 className="mt-5 max-w-3xl font-display text-5xl leading-[1.05] tracking-tight sm:text-6xl lg:text-7xl">
           {title}
         </h1>
         <p className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
